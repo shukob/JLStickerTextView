@@ -12,7 +12,7 @@ import UIKit
 protocol adjustFontSizeToFillRectProtocol {
     
     func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView) -> Void
-    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView) -> Void
+    func adjustsWidthToFillItsContents(_ view: JLStickerLabelView) -> Void
     
 }
 
@@ -63,7 +63,7 @@ extension adjustFontSizeToFillRectProtocol {
         return
     }
     
-    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView) {
+    func adjustsWidthToFillItsContents(_ view: JLStickerLabelView) {
         guard let labelTextView = view.labelTextView else {
             return
         }
@@ -74,7 +74,7 @@ extension adjustFontSizeToFillRectProtocol {
         
         let w1 = (ceilf(Float((recSize?.size.width)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.width)!)) + 24)
         let h1 = (ceilf(Float((recSize?.size.height)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.height)!)) + 24)
-
+        
         var viewFrame = view.bounds
         viewFrame.size.width = w1 + 24
         viewFrame.size.height = h1 + 18

@@ -62,6 +62,8 @@ public class JLStickerLabelView: UIView {
     public var closeView: UIImageView?
     public var imageView: UIImageView?
     
+    var previousText: String?
+    
     fileprivate var isShowingEditingHandles = true
     
     public var borderColor: UIColor? {
@@ -124,8 +126,8 @@ public class JLStickerLabelView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-//        setup()
-//        adjustsWidthToFillItsContens(self)
+        //        setup()
+        //        adjustsWidthToFillItsContens(self)
     }
     
     override init(frame: CGRect) {
@@ -139,14 +141,14 @@ public class JLStickerLabelView: UIView {
             self.bounds.size.height = 25
         }
         
-//        self.setup()
-//        adjustsWidthToFillItsContens(self)
+        //        self.setup()
+        //        adjustsWidthToFillItsContens(self)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        setup()
-//        adjustsWidthToFillItsContens(self)
+        //        setup()
+        //        adjustsWidthToFillItsContens(self)
         
     }
     
@@ -161,7 +163,7 @@ public class JLStickerLabelView: UIView {
     }
     
     private func setup() {
-
+        
         self.setupCloseAndRotateView()
         
         self.addGestureRecognizer(moveGestureRecognizer)
@@ -178,7 +180,7 @@ public class JLStickerLabelView: UIView {
         
         self.showEditingHandles()
         
-        adjustsWidthToFillItsContens(self)
+        adjustsWidthToFillItsContents(self)
     }
     
     func setupTextLabel() {
@@ -195,7 +197,7 @@ public class JLStickerLabelView: UIView {
         
         self.setup()
         
-        adjustsWidthToFillItsContens(self)
+        adjustsWidthToFillItsContents(self)
     }
     
     func setupImageLabel() {
@@ -216,6 +218,10 @@ public class JLStickerLabelView: UIView {
         viewFrame.size.width = 100
         viewFrame.size.height = 100
         self.bounds = viewFrame
+    }
+    
+    public func initializeAttributes(){
+        labelTextView?.typingAttributes = labelTextView!.textAttributes
     }
 }
 
@@ -243,21 +249,15 @@ extension JLStickerLabelView: UITextViewDelegate {
         if (!isShowingEditingHandles) {
             self.showEditingHandles()
         }
-        //if textView.text != "" {
-        //adjustsWidthToFillItsContens(self, labelView: labelTextView)
-        //}
-        
         return true
     }
     
     public func textViewDidChange(_ textView: UITextView) {
         if textView.text != "" {
             if labelTextView != nil {
-                adjustsWidthToFillItsContens(self)
-                 labelTextView!.attributedText = NSAttributedString(string: labelTextView!.text, attributes: labelTextView!.textAttributes)
+                self.adjustsWidthToFillItsContents(self)
+                textView.typingAttributes = labelTextView!.textAttributes
             }
-
-            
         }
     }
 }
@@ -373,7 +373,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
                 }else {
                     self.adjustFontSizeToFillRect(scaleRect, view: self)
                     self.bounds = scaleRect
-                    self.adjustsWidthToFillItsContens(self)
+                    self.adjustsWidthToFillItsContents(self)
                     self.refresh()
                 }
             }
@@ -412,6 +412,7 @@ extension JLStickerLabelView {
         labelTextView?.isScrollEnabled = false
         labelTextView?.isSelectable = true
         labelTextView?.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        labelTextView?.typingAttributes = labelTextView!.textAttributes
     }
     
     private func setupBorder() {

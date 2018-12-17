@@ -63,7 +63,7 @@ extension JLStickerImageView {
 //        labelView.labelTextView?.fontName = "Roboto-Medium"
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
-        adjustsWidthToFillItsContens(currentlyEditingLabel)
+        adjustsWidthToFillItsContents(currentlyEditingLabel)
         labels.append(labelView)
         
         self.addGestureRecognizer(tapOutsideGestureRecognizer)
@@ -83,7 +83,7 @@ extension JLStickerImageView {
         labelView.borderColor = UIColor.white
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
-        adjustsWidthToFillItsContens(currentlyEditingLabel)
+        adjustsWidthToFillItsContents(currentlyEditingLabel)
         labels.append(labelView)
         
         self.addGestureRecognizer(tapOutsideGestureRecognizer)
@@ -205,7 +205,7 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
         set {
             if self.currentlyEditingLabel != nil {
                 self.currentlyEditingLabel.labelTextView?.fontName = newValue
-                adjustsWidthToFillItsContens(currentlyEditingLabel)
+                adjustsWidthToFillItsContents(currentlyEditingLabel)
             }
         }
         get {
@@ -255,7 +255,7 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
         set {
             if self.currentlyEditingLabel != nil {
                 self.currentlyEditingLabel.labelTextView?.lineSpacing = newValue
-                adjustsWidthToFillItsContens(currentlyEditingLabel)
+                adjustsWidthToFillItsContents(currentlyEditingLabel)
             }
             
         }
