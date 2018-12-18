@@ -8,10 +8,15 @@
 
 import UIKit
 
+public protocol JLStickerImageViewDelegate: class{
+    func stickerImageView(stickerImagView: JLStickerImageView,  labelViewDidRemove labelView: JLStickerLabelView)
+}
+
 open class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
-    public var currentlyEditingLabel: JLStickerLabelView!
-    fileprivate var labels: [JLStickerLabelView]!
+    open var currentlyEditingLabel: JLStickerLabelView!
+    open var labels: [JLStickerLabelView]!
     private var renderedView: UIView!
+    open var delegate: JLStickerImageViewDelegate?
     
     fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(JLStickerImageView.tapOutside))
@@ -23,13 +28,13 @@ open class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     //MARK: -
     //MARK: init
     
-    init() {
+    public init() {
         super.init(frame: CGRect.zero)
         isUserInteractionEnabled = true
         labels = []
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         isUserInteractionEnabled = true
         labels = []
@@ -47,7 +52,7 @@ open class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
 //MARK: Functions
 extension JLStickerImageView {
     
-    public func addLabel() {
+    open func addLabel() {
         if let label: JLStickerLabelView = currentlyEditingLabel {
             label.hideEditingHandlers()
         }
@@ -69,7 +74,7 @@ extension JLStickerImageView {
         self.addGestureRecognizer(tapOutsideGestureRecognizer)
     }
     
-    public func addImage() {
+    open func addImage() {
         if let label: JLStickerLabelView = currentlyEditingLabel {
             label.hideEditingHandlers()
         }
@@ -89,7 +94,7 @@ extension JLStickerImageView {
         self.addGestureRecognizer(tapOutsideGestureRecognizer)
     }
     
-    public func renderContentOnView() -> UIImage? {
+    open func renderContentOnView() -> UIImage? {
         
         self.cleanup()
         
@@ -102,7 +107,7 @@ extension JLStickerImageView {
         return img
     }
     
-    public func limitImageViewToSuperView() {
+    open func limitImageViewToSuperView() {
         if self.superview == nil {
             return
         }
@@ -123,7 +128,7 @@ extension JLStickerImageView {
     
     // MARK: -
     
-    func cleanup() {
+    open func cleanup() {
         for label in labels {
             if let isEmpty = label.labelTextView?.text.isEmpty, isEmpty {
                 label.closeTap(nil)
@@ -137,7 +142,7 @@ extension JLStickerImageView {
 //MARK-
 //MARK: Gesture
 extension JLStickerImageView {
-    @objc func tapOutside() {
+    @objc open func tapOutside() {
         if let _: JLStickerLabelView = currentlyEditingLabel {
             currentlyEditingLabel.hideEditingHandlers()
         }
@@ -148,40 +153,41 @@ extension JLStickerImageView {
 //MARK-
 //MARK: stickerViewDelegate
 extension JLStickerImageView: JLStickerLabelViewDelegate {
-    public func labelViewDidBeginEditing(_ label: JLStickerLabelView) {
+    open func labelViewDidBeginEditing(_ label: JLStickerLabelView) {
         //labels.removeObject(label)
         
     }
     
-    public func labelViewDidClose(_ label: JLStickerLabelView) {
-        
+    open func labelViewDidClose(_ label: JLStickerLabelView) {
+        delegate?.stickerImageView(stickerImagView: self, labelViewDidRemove: label)
     }
     
-    public func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {
+    open func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {
         currentlyEditingLabel = label
         
     }
     
-    public func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {
+    open func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {
         currentlyEditingLabel = nil
         
     }
     
-    public func labelViewDidStartEditing(_ label: JLStickerLabelView) {
+    open func labelViewDidStartEditing(_ label: JLStickerLabelView) {
         currentlyEditingLabel = label
         
     }
     
-    public func labelViewDidChangeEditing(_ label: JLStickerLabelView) {
+    open func labelViewDidChangeEditing(_ label: JLStickerLabelView) {
         
     }
     
-    public func labelViewDidEndEditing(_ label: JLStickerLabelView) {
+    open func labelViewDidEndEditing(_ label: JLStickerLabelView) {
         
         
     }
     
-    public func labelViewDidSelected(_ label: JLStickerLabelView) {
+    
+    open func labelViewDidSelected(_ label: JLStickerLabelView) {
         for labelItem in labels {
             labelItem.hideEditingHandlers()
         }
@@ -201,7 +207,7 @@ extension JLStickerImageView: adjustFontSizeToFillRectProtocol {
         case blurRadius(CGFloat)
     }
     
-    public var fontName: String! {
+    open var fontName: String! {
         set {
             if self.currentlyEditingLabel != nil {
                 self.currentlyEditingLabel.labelTextView?.fontName = newValue

@@ -64,7 +64,7 @@ open class JLStickerLabelView: UIView {
     
     var previousText: String?
     
-    fileprivate var isShowingEditingHandles = true
+    open var isShowingEditingHandles = true
     
     public var borderColor: UIColor? {
         didSet {
@@ -118,7 +118,6 @@ open class JLStickerLabelView: UIView {
             self.showEditingHandles()
             self.refresh()
         }
-        
     }
     
     //MARK: -
@@ -229,14 +228,14 @@ open class JLStickerLabelView: UIView {
 //MARK: labelTextViewDelegate
 
 extension JLStickerLabelView: UITextViewDelegate {
-    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if (isShowingEditingHandles) {
             return true
         }
         return false
     }
     
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         
         if let delegate: JLStickerLabelViewDelegate = delegate {
             if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidStartEditing(_:))) {
@@ -245,14 +244,14 @@ extension JLStickerLabelView: UITextViewDelegate {
         }
     }
     
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (!isShowingEditingHandles) {
             self.showEditingHandles()
         }
         return true
     }
     
-    public func textViewDidChange(_ textView: UITextView) {
+    open func textViewDidChange(_ textView: UITextView) {
         if textView.text != "" {
             if labelTextView != nil {
                 self.adjustsWidthToFillItsContents(self)
@@ -265,7 +264,7 @@ extension JLStickerLabelView: UITextViewDelegate {
 //MARK: GestureRecognizer
 
 extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillRectProtocol {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == singleTapShowHide {
             return true
         }
@@ -273,7 +272,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
     }
     
     
-    @objc func contentTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc open func contentTapped(_ recognizer: UITapGestureRecognizer) {
         if !isShowingEditingHandles {
             self.showEditingHandles()
             
@@ -284,7 +283,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         
     }
     
-    @objc func closeTap(_ recognizer: UITapGestureRecognizer?) {
+    @objc open func closeTap(_ recognizer: UITapGestureRecognizer?) {
         self.removeFromSuperview()
         
         if let delegate: JLStickerLabelViewDelegate = delegate {
@@ -294,7 +293,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         }
     }
     
-    @objc func moveGesture(_ recognizer: UIPanGestureRecognizer) {
+    @objc open func moveGesture(_ recognizer: UIPanGestureRecognizer) {
         if !isShowingEditingHandles {
             self.showEditingHandles()
             
@@ -338,7 +337,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         }
     }
     
-    @objc func rotateViewPanGesture(_ recognizer: UIPanGestureRecognizer) {
+    @objc open func rotateViewPanGesture(_ recognizer: UIPanGestureRecognizer) {
         touchLocation = recognizer.location(in: self.superview)
         
         let center = CalculateFunctions.CGRectGetCenter(self.frame)
@@ -475,7 +474,7 @@ extension JLStickerLabelView {
         }
     }
     
-    public func hideEditingHandlers() {
+    open func hideEditingHandlers() {
         lastTouchedView = nil
         
         isShowingEditingHandles = false
@@ -498,7 +497,7 @@ extension JLStickerLabelView {
         }
     }
     
-    public func showEditingHandles() {
+    open func showEditingHandles() {
         lastTouchedView?.hideEditingHandlers()
         
         isShowingEditingHandles = true
