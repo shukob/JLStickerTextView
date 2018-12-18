@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
+open class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     public var currentlyEditingLabel: JLStickerLabelView!
     fileprivate var labels: [JLStickerLabelView]!
     private var renderedView: UIView!

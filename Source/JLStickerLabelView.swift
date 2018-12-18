@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class JLStickerLabelView: UIView {
+open class JLStickerLabelView: UIView {
     //MARK: -
     //MARK: Gestures
     
@@ -112,7 +112,7 @@ public class JLStickerLabelView: UIView {
     //MARK: -
     //MARK: didMoveToSuperView
     
-    override public func didMoveToSuperview() {
+    override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         if self.superview != nil {
             self.showEditingHandles()
@@ -152,7 +152,7 @@ public class JLStickerLabelView: UIView {
         
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         if labelTextView != nil {
             border?.path = UIBezierPath(rect: labelTextView!.bounds).cgPath
             border?.frame = labelTextView!.bounds

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class JLAttributedTextView: UITextView {
+open class JLAttributedTextView: UITextView {
 
     
     public private(set) var textAttributes: [NSAttributedString.Key: AnyObject] = [:]
@@ -209,7 +209,7 @@ public class JLAttributedTextView: UITextView {
 //MARK: CGRect of Cursor
 
 extension JLAttributedTextView {
-    override public func caretRect(for position: UITextPosition) -> CGRect {
+    override open func caretRect(for position: UITextPosition) -> CGRect {
         var originalRect = super.caretRect(for: position)
         originalRect.size.height = self.font!.pointSize - self.font!.descender
         // "descender" is expressed as a negative value,
