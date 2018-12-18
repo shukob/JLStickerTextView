@@ -58,14 +58,14 @@ extension JLStickerImageView {
         }
         
         let labelFrame = CGRect(x: self.bounds.midX - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    y: self.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    width: 60, height: 50)
+                                y: self.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
+                                width: 60, height: 50)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupTextLabel()
         labelView.delegate = self
         labelView.showsContentShadow = false
         labelView.borderColor = UIColor.white
-//        labelView.labelTextView?.fontName = "Roboto-Medium"
+        //        labelView.labelTextView?.fontName = "Roboto-Medium"
         self.addSubview(labelView)
         currentlyEditingLabel = labelView
         adjustsWidthToFillItsContents(currentlyEditingLabel)
@@ -144,7 +144,11 @@ extension JLStickerImageView {
 extension JLStickerImageView {
     @objc open func tapOutside() {
         if let _: JLStickerLabelView = currentlyEditingLabel {
-            currentlyEditingLabel.hideEditingHandlers()
+            if currentlyEditingLabel.labelTextView?.isFirstResponder == true{
+                currentlyEditingLabel.labelTextView?.resignFirstResponder()
+            }else{
+                currentlyEditingLabel.hideEditingHandlers()
+            }
         }
         
     }
@@ -164,12 +168,12 @@ extension JLStickerImageView: JLStickerLabelViewDelegate {
     
     open func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {
         currentlyEditingLabel = label
-        
+        label.labelTextView?.isEditable = true
     }
     
     open func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) {
         currentlyEditingLabel = nil
-        
+        label.labelTextView?.isEditable = false
     }
     
     open func labelViewDidStartEditing(_ label: JLStickerLabelView) {
@@ -189,7 +193,9 @@ extension JLStickerImageView: JLStickerLabelViewDelegate {
     
     open func labelViewDidSelected(_ label: JLStickerLabelView) {
         for labelItem in labels {
-            labelItem.hideEditingHandlers()
+            if labelItem != label{
+                labelItem.hideEditingHandlers()
+            }
         }
         label.showEditingHandles()
     }

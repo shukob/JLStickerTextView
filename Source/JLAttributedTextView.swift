@@ -9,7 +9,7 @@
 import UIKit
 
 open class JLAttributedTextView: UITextView {
-
+    
     
     public private(set) var textAttributes: [NSAttributedString.Key: AnyObject] = [:]
     
@@ -72,17 +72,17 @@ open class JLAttributedTextView: UITextView {
             self.layer.backgroundColor = textBackgroundColor?.withAlphaComponent(textBackgroundAlpha!).cgColor
         }
     }
-
+    
     
     //MARK: -
     //MARK: Paragraph style
-
+    
     public var paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle() {
         didSet {
             textAttributes[.paragraphStyle] = paragraphStyle
         }
     }
-
+    
     public var alignment: NSTextAlignment {
         get {
             return paragraphStyle.alignment
@@ -161,48 +161,48 @@ open class JLAttributedTextView: UITextView {
             
         }
     }
-
+    
     #endif
     
 }
 
 #if os(iOS) || os(tvOS)
-    extension JLAttributedTextView {
-        // MARK: - Shadow
-        
-        /**
-         Sets the shadow attribute and returns the receiver.
-         
-         - parameter color:      The color of the shadow.
-         - parameter offset:     The offset values of the shadow.
-         - parameter blurRadius: The blur radius of the shadow.
-         
-         - returns: The receiver.
-         */
-        public func shadow(color: AnyObject?, offset: CGSize, blurRadius: CGFloat) -> Self {
-            return shadow({
-                let shadow = NSShadow()
-                shadow.shadowColor = color
-                shadow.shadowOffset = offset
-                shadow.shadowBlurRadius = blurRadius
-                return shadow
-                }() as NSShadow)
-        }
-        
-        /**
-         Sets the shadow attribute and returns the receiver.
-         
-         - parameter shadow: The shadow.
-         
-         - returns: The receiver.
-         */
-        public func shadow(_ shadow: NSShadow?) -> Self {
-            self.shadow = shadow
-            return self
-        }
-        
-
+extension JLAttributedTextView {
+    // MARK: - Shadow
+    
+    /**
+     Sets the shadow attribute and returns the receiver.
+     
+     - parameter color:      The color of the shadow.
+     - parameter offset:     The offset values of the shadow.
+     - parameter blurRadius: The blur radius of the shadow.
+     
+     - returns: The receiver.
+     */
+    public func shadow(color: AnyObject?, offset: CGSize, blurRadius: CGFloat) -> Self {
+        return shadow({
+            let shadow = NSShadow()
+            shadow.shadowColor = color
+            shadow.shadowOffset = offset
+            shadow.shadowBlurRadius = blurRadius
+            return shadow
+            }() as NSShadow)
     }
+    
+    /**
+     Sets the shadow attribute and returns the receiver.
+     
+     - parameter shadow: The shadow.
+     
+     - returns: The receiver.
+     */
+    public func shadow(_ shadow: NSShadow?) -> Self {
+        self.shadow = shadow
+        return self
+    }
+    
+    
+}
 #endif
 
 //MARK: -

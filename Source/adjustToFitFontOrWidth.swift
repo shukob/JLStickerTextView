@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol adjustFontSizeToFillRectProtocol {
+public protocol adjustFontSizeToFillRectProtocol {
     
     func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView) -> Void
     func adjustsWidthToFillItsContents(_ view: JLStickerLabelView) -> Void
@@ -17,7 +17,7 @@ protocol adjustFontSizeToFillRectProtocol {
 }
 
 extension adjustFontSizeToFillRectProtocol {
-    func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView) {
+    public func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView) {
         guard let labelTextView = view.labelTextView else {
             return
         }
@@ -63,7 +63,7 @@ extension adjustFontSizeToFillRectProtocol {
         return
     }
     
-    func adjustsWidthToFillItsContents(_ view: JLStickerLabelView) {
+    public func adjustsWidthToFillItsContents(_ view: JLStickerLabelView) {
         guard let labelTextView = view.labelTextView else {
             return
         }
