@@ -367,7 +367,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             
             if scaleRect.size.width >= (1 + globalInset! * 2) && scaleRect.size.height >= (1 + globalInset! * 2) && self.labelTextView?.text != "" {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
-                if scale < 1 && (labelTextView?.fontSize ?? 0) <= 9 {
+                if imageView == nil && scale < 1 && (labelTextView?.fontSize ?? 0) <= 9 {
                     
                 }else {
                     self.adjustFontSizeToFillRect(scaleRect, view: self)
